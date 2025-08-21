@@ -1,44 +1,38 @@
 import streamlit as st
-from utils import load_and_preprocess_data
-from model_arch import predict_with_arch, plot_arch_forecast
+import pandas as pd
+import joblib
 
-def prediksi():
-    st.title("📈 Ethereum Price Forecast with ARCH Model")
+# === Load model Ridge terbaik ===
+model = joblib.load("ridge_best_model.joblib")
 
-    # Load data
-    data_path = "ETH_15min_2017-08-17_to_2025-07-27 new.csv"
-    df_daily = load_and_preprocess_data(data_path)
+# === Judul aplikasi ===
+st.title("🚴‍♂️ Food Delivery Time Prediction")
+st.write("Prediksi waktu pengiriman makanan menggunakan Ridge Regression (Hypertuning).")
 
-    # Tampilkan data harga harian
-    with st.expander("📊 Show Daily ETH Price"):
-        st.line_chart(df_daily)
+# === Input fitur dari user ===
+st.header("Masukkan Data Pesanan")
 
-    # Sidebar input
-    st.sidebar.header("🔧 ARCH Model Settings")
-    p = st.sidebar.slider("Order p (ARCH)", min_value=1, max_value=5, value=1)
-    forecast_days = st.sidebar.slider("Forecast Days", min_value=7, max_value=60, value=30)
+distance = st.number_input("Jarak (km)", min_value=0.0, step=0.1)
+prep_time = st.number_input("Waktu persiapan (menit)", min_value=0, step=1)
+experience = st.number_input("Pengalaman kurir (tahun)", min_value=0, step=1)
 
-    if st.button("🔮 Run ARCH Forecast"):
-        with st.spinner("Training ARCH model and forecasting..."):
-            actual, predicted, forecast, split_date, mape, mae, rmse = predict_with_arch(
-                df_daily, p=p, forecast_days=forecast_days
-            )
+weather = st.selectbox("Cuaca", ["Sunny", "Rainy", "Cloudy", "Snowy"])
+traffic = st.selectbox("Tingkat Kemacetan", ["Low", "Medium", "High"])
+timeofday = st.selectbox("Waktu dalam sehari", ["Morning", "Afternoon", "Evening", "Night"])
+vehicle = st.selectbox("Jenis Kendaraan", ["Bike", "Motorcycle", "Car"])
 
-            fig = plot_arch_forecast(
-                df_daily,
-                actual_price=actual,
-                predicted_price=predicted,
-                forecast_price=forecast,
-                split_date=split_date,
-                return_fig=True
-            )
+# === Buat dataframe input ===
+input_df = pd.DataFrame({
+    "Distance_km": [distance],
+    "Preparation_Time_min": [prep_time],
+    "Courier_Experience_yrs": [experience],
+    "Weather": [weather],
+    "Traffic_Level": [traffic],
+    "Time_of_Day": [timeofday],
+    "Vehicle_Type": [vehicle]
+})
 
-            st.success("Forecast completed!")
-            st.pyplot(fig)
-
-            # Tampilkan metrik evaluasi
-            st.markdown("### 📊 Evaluation Metrics (on Test Set)")
-            col1, col2, col3 = st.columns(3)
-            col1.metric("MAPE", f"{mape:.2f} %")
-            col2.metric("MAE", f"{mae:.2f}")
-            col3.metric("RMSE", f"{rmse:.2f}")
+# === Prediksi ===
+if st.button("Prediksi Waktu Pengiriman"):
+    prediction = model.predict(input_df)
+    st.success(f"⏰ Perkiraan waktu pengiriman: {prediction[0]:.2f} menit")
