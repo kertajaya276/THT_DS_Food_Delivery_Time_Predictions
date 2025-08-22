@@ -4,11 +4,14 @@ st.set_page_config(page_title="Portfolio",
 st.title("Food Delivery Time Prediction")
 st.sidebar.title("Navigasi")
 page = st.sidebar.radio("Pilih Halaman",
-                        ["About Me", "Analysis", "Prediction", "Contact"])
+                        ["About Me", "Project Overview", "Analysis", "Prediction", "Contact"])
 
 if page == 'Contact':
     import kontak
     kontak.tampilkan_kontak()
+elif page == 'Project Overview':
+    import overview
+    overview.tampilkan_overview()
 elif page == 'About Me':
     import tentang
     tentang.tampilkan_tentang()

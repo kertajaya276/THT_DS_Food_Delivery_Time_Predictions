@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import cloudpickle 
 
-# === Load model Ridge terbaik ===
-model = joblib.load("ridge_best_model.joblib")
+# === Load model ===
+with open("best_ridge_model.pkl", "rb") as f:
+    model = cloudpickle.load(f)
 
-# === Judul aplikasi ===
+# === Judul Aplikasi ===
 st.title("🚴‍♂️ Food Delivery Time Prediction")
 st.write("Prediksi waktu pengiriman makanan menggunakan Ridge Regression (Hypertuning).")
 
@@ -21,7 +22,7 @@ traffic = st.selectbox("Tingkat Kemacetan", ["Low", "Medium", "High"])
 timeofday = st.selectbox("Waktu dalam sehari", ["Morning", "Afternoon", "Evening", "Night"])
 vehicle = st.selectbox("Jenis Kendaraan", ["Bike", "Motorcycle", "Car"])
 
-# === Buat dataframe input ===
+# === Buat DataFrame dari input user ===
 input_df = pd.DataFrame({
     "Distance_km": [distance],
     "Preparation_Time_min": [prep_time],
