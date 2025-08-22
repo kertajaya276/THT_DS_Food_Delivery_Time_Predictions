@@ -126,21 +126,25 @@ def tampilkan_analisis():
 
             with st.expander("Conclusion"):
                 st.write('''
-                    Dari hasil analisis dapat diketahui bahwa :
-                    1. Fitur yang paling memengaruhi durasi pengiriman adalah `Distance_km` dan `Preparation_Time_min`.
-                    2. Pengalaman kurir yang tinggi membuat durasi pengiriman sedikit lebih cepat.
-                    3. Semakin buruk cuaca maka semakin lama durasi pengiriman.
-                    4. Semakin tinggi traffic level maka semakin lama durasi pengiriman.
-                    5. Pengantaran di pagi hari cenderung cepat.
-                    6. Jenis kendaraan bike cenderung lebih cepat dari yang lainnya.
+                    Dari hasil analisis dapat diketahui bahwa faktor utama yang memengaruhi Delivery_Time_min :
+                    1. Distance_km -> Jarak tempuh adalah faktor paling dominan, semakin jauh, semakin lama waktu pengiriman. Didukung korelasi kuat (0.78) dan scatter plot dengan tren positif jelas.
+                    2. Preparation_Time_min -> Waktu persiapan berpengaruh signifikan, semakin lama persiapan, semakin lama delivery. Korelasi sedang (0.31) juga mendukung.
+                    3. Traffic_Level -> Level traffic meningkatkan waktu pengiriman, sesuai boxplot (High > Medium > Low).
+                    4. Weather -> Kondisi cuaca memengaruhi delivery. Snowy memperlambat signifikan, Clear mempercepat, cuaca lain relatif sedang-kecil.
+                    5. Courier_Experience_yrs -> Kurir berpengalaman cenderung mengurangi waktu pengiriman (lebih efisien), meski korelasinya rendah dengan target.
+                    6. Vehicle_Type -> Jenis kendaraan berpengaruh kecil. Scooter dan Bike relatif lebih cepat, Car sedikit memperlama durasi pengiriman.
+                    7. Time_of_Day -> Hampir tidak berpengaruh signifikan; boxplot juga memperlihatkan perbedaan antar waktu tidak besar.
                         ''')
                 
             with st.expander("Recommendations"):
                 st.write("""
                     Rekomendasi :
-                    1. Untuk delivery jarak jauh dan cuaca yang buruk, disarankan diberikan kepada kurir yang pengalamannya tinggi, guna meningkatkan efisiensi dan menjaga keselamatan kurir yang baru
-                    2. Meningkatkan kesiapan kurir sebelum pesanan datang guna mengurangi waktu persiapan seperti berada didekat restoran yang sering dipesan pelanggan atau memerhatikan kondisi lalu lintas dan cuaca agar bisa melakukan antisipasi terhadap hal yang tidak terduga.
-                    3. Untuk kurir, diutamakan menggunakan bike atau scooter, karena akan membantu saat kondisi lalu lintas yang padat/tinggi seperti di daerah perkotaan. Dan disarankan menggunakan mobil khususnya disaat jaraknya jauh diluar kota dan cuacanya buruk.
-                    4. Khusus saat cuaca bersalju disarankan menggunakan bike atau scooter dan menambahkan fitur peringatan pada kurir dan pelanggan bahwa karena cuaca buruk durasi pengiriman akan bertambah lama.
+                    1. Fitur jarak punya pengaruh paling besar sehingga disarankan gunakan algoritma optimasi rute (GPS, shortest path).
+                    2. Disarankan meningkatkan SOP dapat mengurangi preparation time.
+                    3. Mempertimbangkan insentif delivery di jam lalu lintas rendah.
+                    4. Cuaca Snowy dan Foggy meningkatkan risiko keterlambatan sehingga disarankan perlu buffer time atau tambahan kurir.
+                    5. Melakukan komunikasi lebih terkait estimasi waktu lebih panjang ke pelanggan saat cuaca ekstrem.
+                    6. Disarankan melakukan training kurir untuk meningkatkan efisiensi dan pairing pesanan sulit dengan kurir berpengalaman.
+                    7. Scooter dan Bike relatif efisien untuk area padat dan Car sebaiknya hanya digunakan untuk pesanan besar/volume tinggi.
                         """)
 
