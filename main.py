@@ -20,4 +20,4 @@ elif page == 'Analysis':
     analisis.tampilkan_analisis()
 elif page == 'Prediction':
     import prediksi
-    prediksi.prediksi()
+    prediksi.tampilkan_prediksi()
