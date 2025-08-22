@@ -1,29 +1,37 @@
 import streamlit as st
 import pandas as pd
-import cloudpickle 
+import cloudpickle
+import matplotlib.pyplot as plt
 
 def tampilkan_prediksi():
-    # === Load model ===
+    # Load model
     with open("best_ridge_model.pkl", "rb") as f:
         model = cloudpickle.load(f)
 
-    # === Judul Aplikasi ===
     st.title("🚴‍♂️ Food Delivery Time Prediction")
     st.write("Prediksi waktu pengiriman makanan menggunakan Ridge Regression (Hypertuning).")
 
-    # === Input fitur dari user ===
+    # Sidebar info tambahan 
+    st.sidebar.markdown("### ℹ️ Tentang Aplikasi")
+    st.sidebar.info("""
+    Aplikasi ini memprediksi estimasi waktu pengiriman makanan berdasarkan input pesanan dan kondisi pengiriman.
+    
+    Model: Ridge Regression
+    """)
+
+    # Input fitur dari user
     st.header("Masukkan Data Pesanan")
 
     distance = st.number_input("Jarak (km)", min_value=0.0, step=0.1)
     prep_time = st.number_input("Waktu persiapan (menit)", min_value=0, step=1)
     experience = st.number_input("Pengalaman kurir (tahun)", min_value=0, step=1)
 
-    weather = st.selectbox("Cuaca", ["Sunny", "Rainy", "Cloudy", "Snowy"])
+    weather = st.selectbox("Cuaca", ["Clear", "Rainy", "Foggy", "Snowy", "Windy", ])
     traffic = st.selectbox("Tingkat Kemacetan", ["Low", "Medium", "High"])
     timeofday = st.selectbox("Waktu dalam sehari", ["Morning", "Afternoon", "Evening", "Night"])
-    vehicle = st.selectbox("Jenis Kendaraan", ["Bike", "Motorcycle", "Car"])
+    vehicle = st.selectbox("Jenis Kendaraan", ["Bike", "Scooter", "Car"])
 
-    # === Buat DataFrame dari input user ===
+    # DataFrame dari input user
     input_df = pd.DataFrame({
         "Distance_km": [distance],
         "Preparation_Time_min": [prep_time],
@@ -34,7 +42,19 @@ def tampilkan_prediksi():
         "Vehicle_Type": [vehicle]
     })
 
-    # === Prediksi ===
+    st.subheader("📋 Ringkasan Input")
+    st.dataframe(input_df)
+
+    # Validasi input 
+    if distance == 0.0 and prep_time == 0 and experience == 0:
+        st.warning("⚠️ Masukkan nilai yang masuk akal sebelum prediksi.")
+        return
+
+    # Prediksi
     if st.button("Prediksi Waktu Pengiriman"):
         prediction = model.predict(input_df)
-        st.success(f"⏰ Perkiraan waktu pengiriman: {prediction[0]:.2f} menit")
+        waktu_prediksi = round(prediction[0], 2)
+
+        # Tampilkan hasil prediksi
+        st.success(f"⏰ Perkiraan waktu pengiriman: {waktu_prediksi} menit")
+
