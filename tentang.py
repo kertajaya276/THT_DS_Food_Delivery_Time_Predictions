@@ -4,7 +4,7 @@ def tampilkan_tentang():
     st.title("Tentang Saya")
     
     st.subheader("👨‍💻 Sang Nyoman Kertajaya")
-    st.image("Sang Nyoman Kertajayaa.jpeg")
+    st.image("IMG_4704.JPG")
     st.write("""
     Perkenalkan, saya **Sang Nyoman Kertajaya** berasal dari Bali, Indonesia.
     
@@ -14,5 +14,4 @@ def tampilkan_tentang():
     
     Salam kenal dan terima kasih telah mengunjungi proyek ini!
     """)
-    
     
