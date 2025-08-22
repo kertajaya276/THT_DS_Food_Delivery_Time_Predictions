@@ -12,9 +12,9 @@ def tampilkan_analisis():
         st.image("https://cdn.builtin.com/cdn-cgi/image/f=auto,fit=cover,w=1200,h=635,q=80/sites/www.builtin.com/files/food-delivery-companies.jpg", width=700)
         with st.expander("Background"):
             st.write("""
-                    Dalam industri delivery, durasi pengantaran adalah faktor yang krusial dalam industri dan waktu pengantaran yang cepat akan dapat meningkatkan reputasi perusahaan, sehingga untuk mempercepat durasi pengantaran akan dilakukan analisis faktor-faktor yang memengaruhi durasi pengantaran.
-                     Selain itu akan, diperlukan alat bantu berbasis data yang mampu memprediksi durasi pengantaran secara akurat.
-                     Dengan bantuan machine learning, prediksi durasi pengantaran dapat dilakukan untuk membantu meningkatkan layanan perusahaan dan meningkatkan kepuasan pelanggan dalam melakukan transaksi.
+                    Dalam industri delivery, durasi pengiriman adalah faktor yang krusial dalam industri dan waktu pengiriman yang cepat akan dapat meningkatkan reputasi perusahaan, sehingga untuk mempercepat durasi pengantaran akan dilakukan analisis faktor-faktor yang memengaruhi durasi pengantaran.
+                     Selain itu akan, diperlukan alat bantu berbasis data yang mampu memprediksi durasi pengiriman secara akurat.
+                     Dengan bantuan machine learning, prediksi durasi pengiriman dapat dilakukan untuk membantu meningkatkan layanan perusahaan dan meningkatkan kepuasan pelanggan dalam melakukan transaksi.
                      """)
         with st.expander("Problem"):
             st.write("""
@@ -43,7 +43,7 @@ def tampilkan_analisis():
                     6. Vehicle_Type : Jenis kendaraan yang digunakan untuk pengiriman, termasuk Bike, Scooter, and Car.
                     7. Preparation_Time_min : Waktu yang dibutuhkan untuk menyiapkan pesanan, diukur dalam menit.
                     8. Courier_Experience_yrs : Pengalaman kurir dalam tahun..
-                    9. Delivery_Time_min: Total waktu pengiriman dalam menit (variabel target).
+                    9. Delivery_Time_min: Total durasi pengiriman dalam menit (variabel target).
                     ''')
             
         with st.expander("Data Understanding"):
@@ -51,7 +51,7 @@ def tampilkan_analisis():
                     1. Data terdiri dari 9 kolom dan 1000 baris
                     2. `Delivery_Time_min` akan menjadi target variabel
                     3. Missing value pada fitur-fitur tertentu akan di-handling
-                    4. Variabel target  `Delivery_Time_min` memiliki distribusi skewness positif/kanan, yang artinya durasi pengantaran cenderung cepat.
+                    4. Variabel target  `Delivery_Time_min` memiliki distribusi skewness positif/kanan, yang artinya durasi pengiriman cenderung cepat.
                     5. Fitur lainnya terlihat normal dan fitur dengan missing value akan diisi dengan mode atau mean.
                      """)
 
@@ -60,7 +60,7 @@ def tampilkan_analisis():
         st.image("https://www.make.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fun655fb9wln6%2Fblog-image-944%2F5908968daefa9c30d62caa234b68c419%2Fon-its-way-a-no-code-food-ordering-system-for-your-restaurant.png&w=3840&q=100", width=700)
         st.write("""
                 1. Dataset memiliki missing value terdapat pada beberapa fitur, namun sudah diisi dengan mode atau mean. 
-                2. Fitur yang menjadi fokus yaitu durasi pengantaran `Delivery_Time_min`.
+                2. Fitur yang menjadi fokus yaitu durasi pengiriman `Delivery_Time_min`.
                 3. Tidak ada data duplikat.
                 4. Adanya outlier pada `Delivery_Time_min` namun masih dalam batas wajar dan fitur lainnya tidak memiliki outlier.
                  """)
@@ -95,12 +95,12 @@ def tampilkan_analisis():
             st.pyplot(fig)
 
             st.write('''
-                1. Jarak `Distance_km` memiliki korelasi positif dengan `Delivery_Time_min`, semakin jauh jarak semakin lama durasi pengantaran
-                2. Waktu pengantaran `Preparation_Time_min` memiliki korelasi positif dengan `Delivery_Time_min`, semakin lama waktu persiapana semakin lama durasi pengantaran.
-                3. Pengalaman kurir `Courier_Experience_yrs` memiliki korelasi negatif dengan `Delivery_Time_min`, semakin lama pengalaman kurir semakin cepat durasi pengantaran. Namun korelasi ini tidak sekuat dengan Jarak
-                4. Cuaca yang cerah `Clear` cenderung memiliki durasi pengantaran yang cepat dan cuaca yang buruk `Snow` cenderung memiliki durasi pengantaran yang lama.
-                5. Kondisi lalu lintas `Traffic_Level` yang semakin tinggi, akan cenderung memiliki durasi pengantaran semakin lama.
-                6. Waktu pengantaran `Time_of_Day` Pagi Hari memiliki durasi pengantaran yang cenderung lebih cepat.
+                1. Jarak `Distance_km` memiliki korelasi positif dengan `Delivery_Time_min`, semakin jauh jarak semakin lama durasi pengiriman
+                2. Waktu persiapan pengiriman `Preparation_Time_min` memiliki korelasi positif dengan `Delivery_Time_min`, semakin lama waktu persiapana semakin lama durasi pengiriman.
+                3. Pengalaman kurir `Courier_Experience_yrs` memiliki korelasi negatif dengan `Delivery_Time_min`, semakin lama pengalaman kurir semakin cepat durasi pengiriman. Namun korelasi ini tidak sekuat dengan Jarak
+                4. Cuaca yang cerah `Clear` cenderung memiliki durasi pengiriman yang cepat dan cuaca yang buruk `Snow` cenderung memiliki durasi pengiriman yang lama.
+                5. Kondisi lalu lintas `Traffic_Level` yang semakin tinggi, akan cenderung memiliki durasi pengiriman semakin lama.
+                6. Waktu pengiriman `Time_of_Day` Pagi Hari memiliki durasi pengiriman yang cenderung lebih cepat.
                 7. Tipe kendaraan `Vehicle_Type` Bike cenderung lebih cepat dibanding lainnya
                     ''')
                     
@@ -117,7 +117,7 @@ def tampilkan_analisis():
 
             st.pyplot(fig)
             st.write('''
-                    Fitur yang paling berpengaruh terhadap `Delivery_Time_min` adalah `Distance_km` dengan korelasi linear, positif dan kuat. Yang mana semakin jauh jarak maka semakin lama durasi pengantaran.
+                    Fitur yang paling berpengaruh terhadap `Delivery_Time_min` adalah `Distance_km` dengan korelasi linear, positif dan kuat. Yang mana semakin jauh jarak maka semakin lama durasi pengiriman.
                     Fitur waktu persiapan `Preparation_Time_min` juga memiliki korelasi linear, positif walaupun tidak sekuat fitur jarak. 
                     ''')
     with tab5:
@@ -127,10 +127,10 @@ def tampilkan_analisis():
             with st.expander("Conclusion"):
                 st.write('''
                     Dari hasil analisis dapat diketahui bahwa :
-                    1. Fitur yang paling memengaruhi durasi pengantaran adalah `Distance_km` dan `Preparation_Time_min`.
-                    2. Pengalaman kurir yang tinggi membuat durasi pengantaran sedikit lebih cepat.
-                    3. Semakin buruk cuaca maka semakin lama durasi pengantaran.
-                    4. Semakin tinggi traffic level maka semakin lama durasi pengantaran.
+                    1. Fitur yang paling memengaruhi durasi pengiriman adalah `Distance_km` dan `Preparation_Time_min`.
+                    2. Pengalaman kurir yang tinggi membuat durasi pengiriman sedikit lebih cepat.
+                    3. Semakin buruk cuaca maka semakin lama durasi pengiriman.
+                    4. Semakin tinggi traffic level maka semakin lama durasi pengiriman.
                     5. Pengantaran di pagi hari cenderung cepat.
                     6. Jenis kendaraan bike cenderung lebih cepat dari yang lainnya.
                         ''')
@@ -141,6 +141,6 @@ def tampilkan_analisis():
                     1. Untuk delivery jarak jauh dan cuaca yang buruk, disarankan diberikan kepada kurir yang pengalamannya tinggi, guna meningkatkan efisiensi dan menjaga keselamatan kurir yang baru
                     2. Meningkatkan kesiapan kurir sebelum pesanan datang guna mengurangi waktu persiapan seperti berada didekat restoran yang sering dipesan pelanggan atau memerhatikan kondisi lalu lintas dan cuaca agar bisa melakukan antisipasi terhadap hal yang tidak terduga.
                     3. Untuk kurir, diutamakan menggunakan bike atau scooter, karena akan membantu saat kondisi lalu lintas yang padat/tinggi seperti di daerah perkotaan. Dan disarankan menggunakan mobil khususnya disaat jaraknya jauh diluar kota dan cuacanya buruk.
-                    4. Khusus saat cuaca bersalju disarankan menggunakan bike atau scooter dan menambahkan fitur peringatan pada kurir dan pelanggan bahwa karena cuaca buruk durasi pengantaran akan bertambah lama.
+                    4. Khusus saat cuaca bersalju disarankan menggunakan bike atau scooter dan menambahkan fitur peringatan pada kurir dan pelanggan bahwa karena cuaca buruk durasi pengiriman akan bertambah lama.
                         """)
 

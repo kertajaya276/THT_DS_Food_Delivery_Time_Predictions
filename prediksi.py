@@ -9,12 +9,12 @@ def tampilkan_prediksi():
         model = cloudpickle.load(f)
 
     st.title("🚴‍♂️ Food Delivery Time Prediction")
-    st.write("Prediksi waktu pengiriman makanan menggunakan Ridge Regression (Hypertuning).")
+    st.write("Prediksi durasi pengiriman makanan menggunakan Ridge Regression (Hypertuning).")
 
     # Sidebar info tambahan 
     st.sidebar.markdown("### ℹ️ Tentang Aplikasi")
     st.sidebar.info("""
-    Aplikasi ini memprediksi estimasi waktu pengiriman makanan berdasarkan input pesanan dan kondisi pengiriman.
+    Aplikasi ini memprediksi estimasi durasi pengiriman makanan berdasarkan input pesanan dan kondisi pengiriman.
     
     Model: Ridge Regression
     """)
@@ -51,10 +51,10 @@ def tampilkan_prediksi():
         return
 
     # Prediksi
-    if st.button("Prediksi Waktu Pengiriman"):
+    if st.button("Prediksi Durasi Pengiriman"):
         prediction = model.predict(input_df)
         waktu_prediksi = round(prediction[0], 2)
 
         # Tampilkan hasil prediksi
-        st.success(f"⏰ Perkiraan waktu pengiriman: {waktu_prediksi} menit")
+        st.success(f"⏰ Perkiraan durasi pengiriman: {waktu_prediksi} menit")
 
